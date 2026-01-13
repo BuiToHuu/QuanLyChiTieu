@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: quanlychitieu-mysql
+    restart: always
+    
+    environment:
+      MYSQL_ROOT_PASSWORD: verysecret
+      MYSQL_DATABASE: quanlychitieu # Đảm bảo tên database đồng nhất
+      MYSQL_USER: springuser           # User Spring Boot sử dụng
+      MYSQL_PASSWORD: springpassword   # Password Spring Boot sử dụng
+      
+    ports:
+      - "3306:3306" # Mở cổng 3306 cho truy cập từ bên ngoài (Workbench/DBeaver)
+      
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

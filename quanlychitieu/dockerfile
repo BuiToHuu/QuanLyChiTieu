@@ -1,0 +1,16 @@
+# 1. Base Image: Sử dụng JRE (Java Runtime Environment) để giữ kích thước nhỏ
+# Chọn phiên bản Java khớp với phiên bản bạn dùng (Java 21)
+FROM eclipse-temurin:21-jre-alpine 
+
+# 2. Tạo biến môi trường để chỉ định thư mục chứa ứng dụng
+VOLUME /tmp
+
+# 3. Chỉ định file JAR đã được build
+# Giả sử bạn chạy 'mvn package' và tạo ra file JAR trong thư mục target/
+ARG JAR_FILE=target/quanlychitieu-0.0.1-SNAPSHOT.jar
+
+# 4. Sao chép file JAR vào Image
+COPY ${JAR_FILE} app.jar
+
+# 5. Lệnh chạy ứng dụng khi container khởi động
+ENTRYPOINT ["java","-jar","/app.jar"]
